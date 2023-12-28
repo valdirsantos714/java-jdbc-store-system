@@ -35,7 +35,7 @@ public class Sistema {
         try {
             int id = 0;
             st = conn.createStatement();
-            rs = st.executeQuery("select id from produtos where nome = " + nomeProduto);
+            rs = st.executeQuery("select id from produtos where nome = '" + nomeProduto + "';");
 
             while (rs.next()) {
                 id = rs.getInt("id");
@@ -62,6 +62,22 @@ public class Sistema {
 
             } else {
                 ps.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            throw new BdException(e.getMessage());
+        }
+    }
+    
+
+    public void verProduto (String nomeProduto) {
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery("select * from produtos where nome = '" + nomeProduto + "';");
+
+            while (rs.next()) {
+                System.out.println(rs.getInt("id") + " " + rs.getString("nome") + " "
+                        + rs.getDouble("preco") + " " + rs.getInt("quantidade"));
             }
 
         } catch (SQLException e) {
