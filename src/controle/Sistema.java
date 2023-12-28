@@ -62,6 +62,7 @@ public class Sistema {
 
             } else {
                 ps.executeUpdate();
+                System.out.println("Quantidade atualiazada com sucesso!");
             }
 
         } catch (SQLException e) {
@@ -85,6 +86,7 @@ public class Sistema {
 
             } else {
                 ps.executeUpdate();
+                System.out.println("Preço atualizado com sucesso!");
             }
 
         } catch (SQLException e) {
@@ -122,6 +124,23 @@ public class Sistema {
             throw new BdException(e.getMessage());
         }
     }
+
+    public void deletarProduto(String nomeProduto) {
+        try {
+            int id = pegaId(nomeProduto);
+
+            ps = conn.prepareStatement("delete from produtos where id = ?");
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+
+            System.out.println("Produto deletado com sucesso!");
+
+        } catch (SQLException e) {
+            throw new BdException(e.getMessage());
+        }
+    }
+
 
 
 }
