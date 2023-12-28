@@ -16,7 +16,7 @@ public class Sistema {
         conn = BD.abrirConexao();
     }
 
-    public void addProdutos(String nomeProduto, Double preco, int quantidade) {
+    public void addProduto(String nomeProduto, Double preco, int quantidade) {
         try {
             ps = conn.prepareStatement("insert into produtos values (NULL, ?, ?, ?);");
             ps.setString(1,nomeProduto);
