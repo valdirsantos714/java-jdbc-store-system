@@ -46,5 +46,19 @@ public class Sistema {
         }
     }
 
+    public void atualizarQuantidade (String nomeProduto, int novaQuantidade)  {
+        try {
+            int id = pegaId(nomeProduto);
+
+            ps = conn.prepareStatement("update produtos set quantidade = ? where id = ? ;");
+            ps.setInt(1,novaQuantidade);
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new BdException(e.getMessage());
+        }
+    }
 
 }
