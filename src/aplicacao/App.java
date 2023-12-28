@@ -13,8 +13,8 @@ public class App {
         System.out.println("Bem vindo ao programa de supermercado!");
         while (perguntaPrincipal != 'n') {
             System.out.println("Digite o que vc quer fazer \n1- Ver Todos Os Produtos\n" +
-                    "2- Ver um Produto Específico\n3- Adicionar Produto\n4 - Atualizar Preco de um produto" +
-                    "\n5- Atualizar Quantidade de Algum Produto\n6- Deletar um Produto");
+                    "2- Ver um Produto Específico\n3- Adicionar Produto\n4- Atualizar Preco de um produto" +
+                    "\n5- Atualizar Quantidade de Algum Produto\n6- Deletar um Produto\n7- Aumentar Quantidade de um produto");
             int pedido = ler.nextInt();
 
             if (pedido == 1) {
@@ -59,7 +59,7 @@ public class App {
                 System.out.print("Digite quantas unidades foram vendidas do produto: ");
                 int quantidadeComprada = ler.nextInt();
 
-                supermercado.atualizarQuantidade(nomeProduto, quantidadeComprada);
+                supermercado.diminuirQuantidade(nomeProduto, quantidadeComprada);
 
             } else if (pedido == 6) {
                 ler.nextLine();
@@ -67,7 +67,18 @@ public class App {
                 String nomeProduto = ler.nextLine();
 
                 supermercado.deletarProduto(nomeProduto);
+
+            } else if (pedido == 7) {
+                ler.nextLine();
+                System.out.print("Digite o nome do produto que vc quer aumentar a quantidade: ");
+                String nomeProduto = ler.nextLine();
+
+                System.out.print("Digite a quantidade a ser adicionada: ");
+                int quantidade = ler.nextInt();
+
+                supermercado.aumentarQuantidade(nomeProduto, quantidade);
             }
+
             ler.nextLine();
             System.out.print("Deseja fazer mais alguma coisa? ");
             perguntaPrincipal = ler.nextLine().charAt(0);

@@ -30,6 +30,20 @@ public class Sistema {
             throw new BdException(e.getMessage());
         }
     }
+    public void aumentarQuantidade(String nomeProduto, int quantidade) {
+        try {
+            int id = pegaId(nomeProduto);
+            ps = conn.prepareStatement("update produtos set quantidade = quantidade + ? where id = ?");
+            ps.setInt(1, quantidade);
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+            System.out.println("Quantidade aumentada com sucesso!");
+
+        } catch (SQLException e) {
+            throw new BdException(e.getMessage());
+        }
+    }
 
     private int pegaId (String nomeProduto) {
         try {
@@ -46,7 +60,7 @@ public class Sistema {
         }
     }
 
-    public void atualizarQuantidade (String nomeProduto, int quantidadeComprada)  {
+    public void diminuirQuantidade (String nomeProduto, int quantidadeComprada)  {
         try {
             int id = pegaId(nomeProduto);
 
@@ -57,13 +71,9 @@ public class Sistema {
             st = conn.createStatement();
             rs = st.executeQuery("select quantidade from produtos where id = " + id);
 
-            if (rs.getInt("quantidade") < 0) {
-                throw new BdException("ERRO! QUANTIDADE INVÁLIDA");
+            ps.executeUpdate();
+            System.out.println("Quantidade diminuida com sucesso!");
 
-            } else {
-                ps.executeUpdate();
-                System.out.println("Quantidade atualiazada com sucesso!");
-            }
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
@@ -78,16 +88,8 @@ public class Sistema {
             ps.setDouble(1,novoPreco);
             ps.setInt(2, id);
 
-            st = conn.createStatement();
-            rs = st.executeQuery("select preco from produtos where id = " + id);
-
-            if (rs.getDouble("preco") < 0.00) {
-                throw new BdException("ERRO! PREÇO INVÁLIDO");
-
-            } else {
-                ps.executeUpdate();
-                System.out.println("Preço atualizado com sucesso!");
-            }
+            ps.executeUpdate();
+            System.out.println("Preço atualizado com sucesso!");
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
@@ -101,8 +103,8 @@ public class Sistema {
             rs = st.executeQuery("select * from produtos where nome = '" + nomeProduto + "';");
 
             while (rs.next()) {
-                System.out.println(rs.getInt("id") + " " + rs.getString("nome") + " "
-                        + rs.getDouble("preco") + " " + rs.getInt("quantidade"));
+                System.out.println("Id: " + rs.getInt("id") + " | Nome: " + rs.getString("nome")
+                        + " | Preço: " + String.format("%.2f", rs.getDouble("preco")) + " | Quantidade: " + rs.getInt("quantidade"));
             }
 
         } catch (SQLException e) {
@@ -116,8 +118,8 @@ public class Sistema {
             rs = st.executeQuery("select * from produtos");
 
             while (rs.next()) {
-                System.out.println(rs.getInt("id") + " " + rs.getString("nome") + " "
-                        + rs.getDouble("preco") + " " + rs.getInt("quantidade"));
+                System.out.println("Id: " + rs.getInt("id") + " | Nome: " + rs.getString("nome")
+                        + " | Preço: "  + String.format("%.2f", rs.getDouble("preco")) + " | Quantidade: " + rs.getInt("quantidade"));
             }
 
         } catch (SQLException e) {
