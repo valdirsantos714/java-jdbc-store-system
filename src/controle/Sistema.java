@@ -108,4 +108,20 @@ public class Sistema {
         }
     }
 
+    public void verTodosOsProdutos () {
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery("select * from produtos");
+
+            while (rs.next()) {
+                System.out.println(rs.getInt("id") + " " + rs.getString("nome") + " "
+                        + rs.getDouble("preco") + " " + rs.getInt("quantidade"));
+            }
+
+        } catch (SQLException e) {
+            throw new BdException(e.getMessage());
+        }
+    }
+
+
 }
