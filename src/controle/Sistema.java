@@ -68,7 +68,30 @@ public class Sistema {
             throw new BdException(e.getMessage());
         }
     }
-    
+
+    public void atualizarPreco (String nomeProduto, Double novoPreco)  {
+        try {
+            int id = pegaId(nomeProduto);
+
+            ps = conn.prepareStatement("update produtos set preco = ? where id = ? ;");
+            ps.setDouble(1,novoPreco);
+            ps.setInt(2, id);
+
+            st = conn.createStatement();
+            rs = st.executeQuery("select preco from produtos where id = " + id);
+
+            if (rs.getDouble("preco") < 0.00) {
+                throw new BdException("ERRO! PREÇO INVÁLIDO");
+
+            } else {
+                ps.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            throw new BdException(e.getMessage());
+        }
+    }
+
 
     public void verProduto (String nomeProduto) {
         try {
