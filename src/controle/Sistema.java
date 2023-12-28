@@ -31,6 +31,20 @@ public class Sistema {
         }
     }
 
+    private int pegaId (String nomeProduto) {
+        try {
+            int id = 0;
+            st = conn.createStatement();
+            rs = st.executeQuery("select id from produtos where nome = " + nomeProduto);
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+            return id;
+        } catch (SQLException e) {
+            throw new BdException(e.getMessage());
+        }
+    }
 
 
 }
