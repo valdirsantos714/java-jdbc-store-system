@@ -28,6 +28,8 @@ public class Sistema {
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
+        } finally {
+            BD.fecharStatementAndResultSet(st, rs);
         }
     }
     public void aumentarQuantidade(String nomeProduto, int quantidade) {
@@ -42,6 +44,8 @@ public class Sistema {
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
+        } finally {
+            BD.fecharStatementAndResultSet(st, rs);
         }
     }
 
@@ -57,26 +61,54 @@ public class Sistema {
             return id;
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
+        } finally {
+            BD.fecharStatementAndResultSet(st, rs);
         }
     }
 
     public void diminuirQuantidade (String nomeProduto, int quantidadeComprada)  {
         try {
             int id = pegaId(nomeProduto);
+            int novaQuantidade = pegaQuantidadeAtual(nomeProduto) - quantidadeComprada;
 
-            ps = conn.prepareStatement("update produtos set quantidade = quantidade - ? where id = ? ;");
-            ps.setInt(1,quantidadeComprada);
-            ps.setInt(2, id);
+            if (novaQuantidade < 0) {
+                throw new BdException("ERRO: QUANTIDADE NÃO PODE SER MENOR QUE ZERO!");
 
-            st = conn.createStatement();
-            rs = st.executeQuery("select quantidade from produtos where id = " + id);
+            } else {
 
-            ps.executeUpdate();
-            System.out.println("Quantidade diminuida com sucesso!");
+                ps = conn.prepareStatement("update produtos set quantidade = quantidade - ? where id = ? ;");
+                ps.setInt(1, quantidadeComprada);
+                ps.setInt(2, id);
 
+                st = conn.createStatement();
+                rs = st.executeQuery("select quantidade from produtos where id = " + id);
+
+                ps.executeUpdate();
+                System.out.println("Quantidade diminuida com sucesso!");
+            }
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
+        } finally {
+            BD.fecharStatementAndResultSet(st, rs);
+        }
+    }
+
+    private int pegaQuantidadeAtual(String nomeProduto) {
+        try {
+            int quantidadeAtual = 0;
+            st = conn.createStatement();
+            rs = st.executeQuery("select quantidade from produtos where nome = '" + nomeProduto + "';");
+
+            while (rs.next()) {
+                quantidadeAtual = rs.getInt("quantidade");
+            }
+            return quantidadeAtual;
+
+        } catch (SQLException e) {
+            throw new BdException(e.getMessage());
+        } finally {
+            BD.fecharStatementAndResultSet(st, rs);
         }
     }
 
@@ -84,15 +116,22 @@ public class Sistema {
         try {
             int id = pegaId(nomeProduto);
 
-            ps = conn.prepareStatement("update produtos set preco = ? where id = ? ;");
-            ps.setDouble(1,novoPreco);
-            ps.setInt(2, id);
+            if (novoPreco < 0.00) {
+                throw new BdException("ERRO! PREÇO MENOR QUE ZERO!");
 
-            ps.executeUpdate();
-            System.out.println("Preço atualizado com sucesso!");
+            } else {
+                ps = conn.prepareStatement("update produtos set preco = ? where id = ? ;");
+                ps.setDouble(1, novoPreco);
+                ps.setInt(2, id);
+
+                ps.executeUpdate();
+                System.out.println("Preço atualizado com sucesso!");
+            }
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
+        }  finally {
+            BD.fecharStatementAndResultSet(st, rs);
         }
     }
 
@@ -109,6 +148,8 @@ public class Sistema {
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
+        } finally {
+            BD.fecharStatementAndResultSet(st, rs);
         }
     }
 
@@ -124,6 +165,8 @@ public class Sistema {
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
+        } finally {
+            BD.fecharStatementAndResultSet(st, rs);
         }
     }
 
@@ -140,6 +183,8 @@ public class Sistema {
 
         } catch (SQLException e) {
             throw new BdException(e.getMessage());
+        } finally {
+            BD.fecharStatementAndResultSet(st, rs);
         }
     }
 
