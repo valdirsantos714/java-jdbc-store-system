@@ -19,7 +19,7 @@ Esse sistema pode ser útil para cadastro de nome, preço e quantidade de produt
 
 ## Conhecimentos usados
 - Lógica de Programação
-- Programação Orientada a Objetos
+- Programação Orientada a Objetos (POO)
 - Java
 - Banco de Dados
 
