@@ -17,9 +17,13 @@ Esse sistema pode ser útil para cadastro de nome, preço e quantidade de produt
 - Java
 - Banco de dados MySQL
 
-## Como reutilizar esse sistema 
+## Conhecimentos usados
+- Lógica de Programação
+- Programação Orientada a Objetos
+- Java
+- Banco de Dados
 
-- Pré requisitos: Java 17
+## Como reutilizar esse sistema 
 
 - Baixe o MySQL Workbench
 - Crie um database com o nome do seu comércio
