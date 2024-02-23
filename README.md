@@ -2,7 +2,7 @@
 
 ## Sobre o Sistema
 
-Sistema de Loja criado com Java e banco de dados MySQL com orientação a objetos, funções e tratamento de exceções (sem interface gráfica), que pode ser utilizado para qualquer sistema de comércio, como supermercado, loja de roupa, entre outros tipos de comércio.
+Sistema de Loja criado com Java e JDBC com banco de dados MySQL, orientação a objetos, funções e tratamento de exceções (sem interface gráfica), que pode ser utilizado para qualquer sistema de comércio, como supermercado, loja de roupa, entre outros tipos de comércio.
 
 Esse sistema pode ser útil para cadastro de nome, preço e quantidade de produtos dos mais diversos tipos.
 
@@ -16,6 +16,7 @@ Esse sistema pode ser útil para cadastro de nome, preço e quantidade de produt
 
 - Java
 - Banco de dados MySQL
+- JDBC
 
 ## Conhecimentos usados
 - Lógica de Programação
